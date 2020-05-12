@@ -31,43 +31,31 @@ export class ProtobufComponent implements IComponent {
         opts = opts || {};
         this.serverProtosPath = opts.serverProtos || '/config/serverProtos.json';
         this.clientProtosPath = opts.clientProtos || '/config/clientProtos.json';
-        console.error('new Protobuf');
     }
 
     start(cb) {
-        console.error('Protobuf start');
         this.setProtos(SERVER, path.join(this.app.getBase(), this.serverProtosPath));
         this.setProtos(CLIENT, path.join(this.app.getBase(), this.clientProtosPath));
 
-        console.error('serverProtos', this.serverProtos);
-        console.error('clientProtos', this.clientProtos);
-
         this.serverProtoRoot = Root.fromJSON(this.serverProtos);
         this.clientProtoRoot = Root.fromJSON(this.clientProtos);
-
-        console.error('root server', this.serverProtoRoot.toJSON(), this.serverProtoRoot.toString());
-        console.error('root client', this.clientProtoRoot.toJSON(), this.clientProtoRoot.toString());
 
         process.nextTick(cb);
     }
 
     check(type, route) {
-        console.error('Protobuf check', { type, route });
+        route = Parser4protobufjs.normalizeRoute(route);
         switch (type) {
             case SERVER:
                 if (!this.serverProtoRoot) {
                     return null;
                 }
-                console.error('lookup', this.serverProtoRoot.lookup(route));
-                console.error('lookupType', this.serverProtoRoot.lookupType(route));
                 return this.serverProtoRoot.lookup(route);
                 break;
             case CLIENT:
                 if (!this.clientProtoRoot) {
                     return null;
                 }
-                console.error('lookup', this.clientProtoRoot.lookup(route));
-                console.error('lookupType', this.clientProtoRoot.lookupType(route));
                 return this.clientProtoRoot.lookup(route);
                 break;
             default:
@@ -77,7 +65,7 @@ export class ProtobufComponent implements IComponent {
     }
 
     encode(route, message) {
-        console.error('protobuf decode', route);
+        route = Parser4protobufjs.normalizeRoute(route);
         const ProtoMessage = this.serverProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
@@ -91,14 +79,13 @@ export class ProtobufComponent implements IComponent {
     }
 
     decode(route, message) {
-        console.error('protobuf decode', route);
+        route = Parser4protobufjs.normalizeRoute(route);
         const ProtoMessage = this.clientProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
         }
         const msg = ProtoMessage.decode(message);
         const obj = ProtoMessage.toObject(msg);
-        console.error('protobuf decode result =', obj);
         return obj;
     }
 
@@ -166,7 +153,6 @@ export class ProtobufComponent implements IComponent {
     }
 
     stop(force, cb) {
-        console.error('Protobuf stop');
         for (var type in this.watchers) {
             this.watchers[type].close();
         }
