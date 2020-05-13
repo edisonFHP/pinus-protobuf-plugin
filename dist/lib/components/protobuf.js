@@ -66,8 +66,7 @@ class ProtobufComponent {
             throw Error('not such route ' + route);
         }
         const msg = ProtoMessage.decode(message);
-        const obj = ProtoMessage.toObject(msg);
-        return obj;
+        return ProtoMessage.toObject(msg);
     }
     getProtos() {
         return {

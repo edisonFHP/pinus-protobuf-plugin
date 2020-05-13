@@ -43,7 +43,7 @@ export class ProtobufComponent implements IComponent {
         process.nextTick(cb);
     }
 
-    check(type, route) {
+    check(type: 'server' | 'client', route: string) {
         route = Parser4protobufjs.normalizeRoute(route);
         switch (type) {
             case SERVER:
@@ -64,7 +64,7 @@ export class ProtobufComponent implements IComponent {
         }
     }
 
-    encode(route, message) {
+    encode(route: string, message: Object) {
         route = Parser4protobufjs.normalizeRoute(route);
         const ProtoMessage = this.serverProtoRoot.lookupType(route);
         if (!ProtoMessage) {
@@ -78,15 +78,14 @@ export class ProtobufComponent implements IComponent {
         return ProtoMessage.encode(msg).finish();
     }
 
-    decode(route, message) {
+    decode(route: string, message: Buffer): Object {
         route = Parser4protobufjs.normalizeRoute(route);
         const ProtoMessage = this.clientProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
         }
         const msg = ProtoMessage.decode(message);
-        const obj = ProtoMessage.toObject(msg);
-        return obj;
+        return ProtoMessage.toObject(msg);
     }
 
     getProtos() {
@@ -101,7 +100,7 @@ export class ProtobufComponent implements IComponent {
         return this.version;
     }
 
-    setProtos(type, path) {
+    setProtos(type: 'server' | 'client', path: string) {
         if (!fs.existsSync(path)) {
             return;
         }
@@ -130,7 +129,7 @@ export class ProtobufComponent implements IComponent {
         this.watchers[type] = watcher;
     }
 
-    onUpdate(type, path, event) {
+    onUpdate(type: 'server' | 'client', path: string, event: string) {
         if (event !== 'change') {
             return;
         }
@@ -152,7 +151,7 @@ export class ProtobufComponent implements IComponent {
         });
     }
 
-    stop(force, cb) {
+    stop(force, cb: Function) {
         for (var type in this.watchers) {
             this.watchers[type].close();
         }
