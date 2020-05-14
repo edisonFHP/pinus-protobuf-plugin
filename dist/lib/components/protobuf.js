@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 const path = require("path");
-const Logger = require("pinusmod-logger");
+const Logger = require("pinus-logger");
 const logger = Logger.getLogger('ragdoll', __filename);
 const protobufjs_1 = require("protobufjs");
 const parser4client_1 = require("./parser4client");

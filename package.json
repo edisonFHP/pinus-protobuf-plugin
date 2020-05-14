@@ -1,6 +1,6 @@
 {
     "name": "pinus-protobuf-plugin",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": false,
     "author": "py8765 pengyang633@126.com/@py8765",
     "main": "./dist/index.js",
@@ -8,10 +8,11 @@
         "pinus",
         "protobuf"
     ],
+    "license": "BSD",
     "dependencies": {
         "mqtt-connection": "^4.0.0",
-        "pinusmod": "^1.4.0",
-        "pinusmod-logger": "^1.4.0",
+        "pinus": "^1.4.0",
+        "pinus-logger": "^1.4.0",
         "protobufjs": "6.9.0"
     },
     "devDependencies": {

@@ -1,5 +1,5 @@
 import { ProtobufComponent } from './lib/components/protobuf';
-import { IPlugin } from 'pinusmod';
+import { IPlugin } from 'pinus';
 
 export const Protobuf: IPlugin = {
     name: '__decodeIO__protobuf__',

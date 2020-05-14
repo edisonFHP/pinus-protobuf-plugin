@@ -120,6 +120,11 @@
   resolved "https://registry.yarnpkg.com/@types/long/-/long-4.0.1.tgz#459c65fa1867dafe6a8f322c4c51695663cc55e9"
   integrity sha512-5tXH6Bx/kNGd3MgffdmP4dy2Z+G4eaXw0SE81Tq3BNadtnMR5/ySMzX4SLEzHJzSmPNn4HIdpQsBvXMUykr58w==
 
+"@types/mocha@^5.0.0":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-5.2.7.tgz#315d570ccb56c53452ff8638738df60726d5b6ea"
+  integrity sha512-NYrtPht0wGzhwe9+/idPaBB+TqkY9AhTvOLMkThm0IoEfLaiVQZwBwyJ5puCkO3AUCWrmcoePjp2mbFocKy4SQ==
+
 "@types/mqtt-connection@git+https://github.com/node-pinus/types-mqtt-connection.git":
   version "0.0.1"
   resolved "git+https://github.com/node-pinus/types-mqtt-connection.git#2b2af122ebca8bff7d1df7101d37dfa3131b6c4f"
@@ -709,59 +714,60 @@ parseuri@0.0.5:
   dependencies:
     better-assert "~1.0.0"
 
-pinusmod-admin@^1.4.17:
-  version "1.4.17"
-  resolved "https://registry.yarnpkg.com/pinusmod-admin/-/pinusmod-admin-1.4.17.tgz#ecfdb74013f0150c828a83f738afc114ce3ef72b"
-  integrity sha512-HW1k3xWS3yQkzmFSEGcY7aLSuVdNtV7rYVii0GxRo5zhDCqil4xBbhdK4zXyo9UM06d6U88ZZPFQf6/N5eZu9w==
+pinus-admin@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-admin/-/pinus-admin-1.4.4.tgz#9fd53961cafae3485b7582e70a17900293b6ac59"
+  integrity sha512-NNpBbpbp5rbmGoxeQK5DGp3peclajsTtLb0KvaIsIkWL10Xnf+vmFylQYWkghU+bddrAerA6HZCByYw7dH1FHw==
   dependencies:
+    "@types/mqtt-connection" "git+https://github.com/node-pinus/types-mqtt-connection.git"
     "@types/node" "8.10.54"
     mqtt-connection "^3.2.0"
-    pinusmod-logger "^1.4.16"
-    pinusmod-monitor "^1.4.16"
-    pinusmod-scheduler "^1.4.17"
+    pinus-logger "^1.4.4"
+    pinus-monitor "^1.4.4"
+    pinus-scheduler "^1.4.4"
     read-last-lines "^1.3.0"
 
-pinusmod-loader@^1.4.16:
-  version "1.4.16"
-  resolved "https://registry.yarnpkg.com/pinusmod-loader/-/pinusmod-loader-1.4.16.tgz#aedb73f56ebdda6b3cb85de620ef081b58b15563"
-  integrity sha512-Ipqdn20XlK4qrpFQRFIhj7Zuzh5zf/SBg0//lP7O3l2zZs/5uYmkBXTt2Hdog9a23zJgtJkUbkrZboSfYTpqEg==
+pinus-loader@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-loader/-/pinus-loader-1.4.4.tgz#da6f1cab1fee19068ce9586bd0c5a42a8239b5b9"
+  integrity sha512-hy0iFpilA7Y/umAx1a8YVloBQSCmUlDWEn+ZLRBVFpE+gAAiP6JuLQJoSXvrph8J7rdV7pBVL4LwZzJFIppuOQ==
   dependencies:
     "@types/node" "8.10.54"
     reflect-metadata "0.1.13"
 
-pinusmod-logger@^1.4.0, pinusmod-logger@^1.4.16:
-  version "1.4.16"
-  resolved "https://registry.yarnpkg.com/pinusmod-logger/-/pinusmod-logger-1.4.16.tgz#ffce401744f40957190cb5acc695703ad04813cc"
-  integrity sha512-ZSdYeJlYroutx6WpwZx6pgJG95lVqpgvsr91Z6KmspQ3arXiTpvtKH/loMrM/RorKQkIB167J8TOfbvga2DH7A==
+pinus-logger@^1.4.0, pinus-logger@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-logger/-/pinus-logger-1.4.4.tgz#931dac0225354ccfd9099a3298c9f985729357db"
+  integrity sha512-D5EzIEqpxf+mWeo0OAfTC/mRC+G9HV4o1m0cwF8vzdwLNE/mJzQEmo+OpNatGoC6BqSgqanb4SoZcd/TpHE8vQ==
   dependencies:
     "@types/node" "8.10.54"
     log4js "^6.0.0"
 
-pinusmod-monitor@^1.4.16:
-  version "1.4.16"
-  resolved "https://registry.yarnpkg.com/pinusmod-monitor/-/pinusmod-monitor-1.4.16.tgz#dae9df882f7da27ac1a5e38234afcf456bccc2e8"
-  integrity sha512-gMJlC4bC4SxRhgK7eA8knP3YtquKGVjlzHhnqFC4ox3tXfEMzrlxtc8oiBG9YJ9uw+Y541Ep5mabYYUe+hmOTw==
+pinus-monitor@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-monitor/-/pinus-monitor-1.4.4.tgz#57f167d28b743275fd48ddaa5ef2824a8c513732"
+  integrity sha512-dj1Aq2u2aEwaDkln5fNxTHZ/urKEE7WMm8mC2TdkozSUjGflJv9UUmcYb1178gzrD+pGax0lH4G7/vZcmdsNng==
   dependencies:
     "@types/node" "8.10.54"
 
-pinusmod-protobuf@^1.4.18:
-  version "1.4.18"
-  resolved "https://registry.yarnpkg.com/pinusmod-protobuf/-/pinusmod-protobuf-1.4.18.tgz#5c69fe9cefa73b845c4b066110266e292f2c59e2"
-  integrity sha512-zttdCo6hwfrfbHVZC/PlR1oH7d8krNlgyNjHoMGvysVFmLX761+Yt5ruKKcYPEOz6ygO9xJXpbAouPe+m1unsg==
+pinus-protobuf@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-protobuf/-/pinus-protobuf-1.4.4.tgz#0a6b68621116af5bfc76dbaa52ab1bc1e79bea42"
+  integrity sha512-G+V19vavuO8aeP69+LKz+XICkHOdfLHvmttUqZ8m6AV+Ldh8TJb0b5KO1gO5upFklEY9mqJ/2Xyzq8ZmoSjP4w==
   dependencies:
     "@types/node" "8.10.54"
 
-pinusmod-protocol@^1.4.16:
-  version "1.4.16"
-  resolved "https://registry.yarnpkg.com/pinusmod-protocol/-/pinusmod-protocol-1.4.16.tgz#560fc4e9ec910f7091ebd57ec7248c3127ce523d"
-  integrity sha512-V4VQMXS85aX8W0Fb2JEjMeUwqS08e81Nbl2RX11HTuVyo7ZKuytWbHslvFYuyzykV4tv1uzTfiSK+EUBi0o4IQ==
+pinus-protocol@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-protocol/-/pinus-protocol-1.4.4.tgz#661b3c0a982c75c8e308be0d4025d884f7f05be3"
+  integrity sha512-ycrcvjCkFMzgqcpPXxEnGMpLF3B/QYvkPPkMCwW9oQfcI6RTDKtyWRO4hzt67HS8nuTgQh9wXUppO1kuOPa9PA==
   dependencies:
     "@types/node" "8.10.54"
 
-pinusmod-rpc@^1.4.17:
-  version "1.4.17"
-  resolved "https://registry.yarnpkg.com/pinusmod-rpc/-/pinusmod-rpc-1.4.17.tgz#ce3b65e38704c1e614848d70ed955d5a5a50ec41"
-  integrity sha512-2xejjKhv3nu3qRB7HppfcPrXo85H3omDJkAvyqyvhVDKB8ktP0g7KT0c7G5d2L9dOZNI0BY2A82PEeGBXPbJMw==
+pinus-rpc@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-rpc/-/pinus-rpc-1.4.4.tgz#88da4245beacf88eb4030eb6348a605d2fd1b33d"
+  integrity sha512-1VPrfm0y+BZNiohKP66EXEGBOIlrDSajU8N6ltYnWzjZ6fWOrbLSCVFuwCz3kVWzJhCb3kE4shpJrx2EAInOzA==
   dependencies:
     "@types/async" "^3.0.0"
     "@types/bluebird" "^3.5.19"
@@ -776,27 +782,29 @@ pinusmod-rpc@^1.4.17:
     bluebird "^3.5.1"
     crc "^0.2.1"
     mqtt-connection "^3.2.0"
-    pinusmod-loader "^1.4.16"
-    pinusmod-logger "^1.4.16"
+    pinus-loader "^1.4.4"
+    pinus-logger "^1.4.4"
     socket.io "^2.3.0"
     source-map-support "^0.5.0"
     stream-pkg "0.0.5"
     uuid "^3.1.0"
     ws "^7.0.0"
 
-pinusmod-scheduler@^1.4.17:
-  version "1.4.17"
-  resolved "https://registry.yarnpkg.com/pinusmod-scheduler/-/pinusmod-scheduler-1.4.17.tgz#7b855a238ff2f819d4592cad8e20f9c0189c19c4"
-  integrity sha512-5kCb9q1dv33dXv9ithgtG1AcOKtPphdBKnlyZVPXn/a+Fp0f5FyJ2l6RZS3hKCVWMgMRADyXl9Uahdm8ul47Ow==
+pinus-scheduler@^1.4.4:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus-scheduler/-/pinus-scheduler-1.4.4.tgz#0e36e7b70eb1887eb89b3338c1e430417b2c386f"
+  integrity sha512-AbycFSg427txm7+Url264fGePGljEfU8YD+w5Zl20/MW9bddsU4DqIC0SEJApOpc+VLyJgVFVHwPPv0oCQ1DTw==
   dependencies:
     "@types/node" "8.10.54"
-    pinusmod-logger "^1.4.16"
+    pinus-logger "^1.4.4"
 
-pinusmod@^1.4.0:
-  version "1.4.18"
-  resolved "https://registry.yarnpkg.com/pinusmod/-/pinusmod-1.4.18.tgz#91b94ce21238e263325a7df4fb89902847e45888"
-  integrity sha512-OEGaZxVtHny+PL8dDfD0G3gZ2pIGDw0WaooH4t2d8PZCLUzKqVDyUDaB9upJT3Gyy4a6fD4TLpEe8v1aOcmKfQ==
+pinus@^1.4.0:
+  version "1.4.4"
+  resolved "https://registry.yarnpkg.com/pinus/-/pinus-1.4.4.tgz#18e7cf0a2b0bc591a990e827905bb78197f02a75"
+  integrity sha512-8rIo1JEYds+sOqJOdKVtLWy2p9Rh3Ab5BaNlruiBQ/crSTgT7DXfclhkJrykNb+uVVXbLOVqy6EbCvnSZGDNpg==
   dependencies:
+    "@types/mocha" "^5.0.0"
+    "@types/mqtt-connection" "git+https://github.com/node-pinus/types-mqtt-connection.git"
     "@types/socket.io" "^2.1.4"
     async "^3.0.0"
     cliff "^0.1.10"
@@ -806,13 +814,13 @@ pinusmod@^1.4.0:
     mkdirp "^0.5.1"
     mqtt-connection "^4.0.0"
     node-bignumber "^1.2.1"
-    pinusmod-admin "^1.4.17"
-    pinusmod-loader "^1.4.16"
-    pinusmod-logger "^1.4.16"
-    pinusmod-protobuf "^1.4.18"
-    pinusmod-protocol "^1.4.16"
-    pinusmod-rpc "^1.4.17"
-    pinusmod-scheduler "^1.4.17"
+    pinus-admin "^1.4.4"
+    pinus-loader "^1.4.4"
+    pinus-logger "^1.4.4"
+    pinus-protobuf "^1.4.4"
+    pinus-protocol "^1.4.4"
+    pinus-rpc "^1.4.4"
+    pinus-scheduler "^1.4.4"
     seq-queue "^0.0.5"
     socket.io "^2.3.0"
     ws "^7.0.0"

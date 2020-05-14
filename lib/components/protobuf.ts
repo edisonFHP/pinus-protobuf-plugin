@@ -1,9 +1,9 @@
 import * as fs from 'fs';
 import * as  path from 'path';
-import * as Logger from 'pinusmod-logger';
+import * as Logger from 'pinus-logger';
 const logger = Logger.getLogger('ragdoll', __filename);
 import { Root, loadSync } from 'protobufjs';
-import { Application, IComponent } from 'pinusmod';
+import { Application, IComponent } from 'pinus';
 import { Parser4client } from './parser4client';
 import { Parser4protobufjs } from './parser4protobufjs';
 
