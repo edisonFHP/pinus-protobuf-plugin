@@ -4,8 +4,6 @@ import * as Logger from 'pinus-logger';
 const logger = Logger.getLogger('ragdoll', __filename);
 import { Root, loadSync } from 'protobufjs';
 import { Application, IComponent } from 'pinus';
-import { Parser4client } from './parser4client';
-import { Parser4protobufjs } from './parser4protobufjs';
 
 const SERVER = 'server';
 const CLIENT = 'client';
@@ -18,8 +16,6 @@ export class ProtobufComponent implements IComponent {
     clientProtosPath: string;
     serverProtoRoot: Root;
     clientProtoRoot: Root;
-    serverProtosJson: any;
-    clientProtosJson: any;
     serverProtos: any;
     clientProtos: any;
     name = '__decodeIO__protobuf__';
@@ -44,7 +40,6 @@ export class ProtobufComponent implements IComponent {
     }
 
     check(type: 'server' | 'client', route: string) {
-        route = Parser4protobufjs.normalizeRoute(route);
         switch (type) {
             case SERVER:
                 if (!this.serverProtoRoot) {
@@ -65,7 +60,6 @@ export class ProtobufComponent implements IComponent {
     }
 
     encode(route: string, message: Object) {
-        route = Parser4protobufjs.normalizeRoute(route);
         const ProtoMessage = this.serverProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
@@ -79,7 +73,6 @@ export class ProtobufComponent implements IComponent {
     }
 
     decode(route: string, message: Buffer): Object {
-        route = Parser4protobufjs.normalizeRoute(route);
         const ProtoMessage = this.clientProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
@@ -90,8 +83,8 @@ export class ProtobufComponent implements IComponent {
 
     getProtos() {
         return {
-            server: Parser4client.parse(this.serverProtosJson),
-            client: Parser4client.parse(this.clientProtosJson),
+            server: this.serverProtos,
+            client: this.clientProtos,
             version: this.version
         };
     }
@@ -106,13 +99,11 @@ export class ProtobufComponent implements IComponent {
         }
 
         if (type === SERVER) {
-            this.serverProtosJson = require(path);
-            this.serverProtos = Parser4protobufjs.parse(this.serverProtosJson);
+            this.serverProtos = require(path);
         }
 
         if (type === CLIENT) {
-            this.clientProtosJson = require(path);
-            this.clientProtos = Parser4protobufjs.parse(this.clientProtosJson);
+            this.clientProtos = require(path);
         }
 
         //Set version to modify time
@@ -137,11 +128,9 @@ export class ProtobufComponent implements IComponent {
         fs.readFile(path, 'utf8', function (err, data) {
             try {
                 if (type === SERVER) {
-                    this.serverProtosJson = JSON.parse(data);
-                    this.serverProtos = Parser4protobufjs.parse(this.serverProtosJson);
+                    this.serverProtos = JSON.parse(data);
                 } else {
-                    this.clientProtosJson = JSON.parse(data);
-                    this.clientProtos = Parser4protobufjs.parse(this.clientProtosJson);
+                    this.clientProtos = JSON.parse(data);
                 }
 
                 this.version = fs.statSync(path).mtime.getTime();
