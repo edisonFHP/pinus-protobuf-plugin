@@ -1,5 +1,5 @@
 import * as fs from 'fs';
-import * as  path from 'path';
+import * as path from 'path';
 import * as Logger from 'pinus-logger';
 const logger = Logger.getLogger('ragdoll', __filename);
 import { Root, loadSync } from 'protobufjs';
@@ -7,6 +7,17 @@ import { Application, IComponent } from 'pinus';
 
 const SERVER = 'server';
 const CLIENT = 'client';
+
+export interface ArgsProtobufComponent {
+    serverProtos?: string;
+    clientProtos?: string;
+}
+
+export interface ObjectProtos {
+    server?: any;
+    client?: any;
+    version?: number;
+}
 
 export class ProtobufComponent implements IComponent {
     app: Application;
@@ -20,18 +31,26 @@ export class ProtobufComponent implements IComponent {
     clientProtos: any;
     name = '__decodeIO__protobuf__';
 
-    constructor(app: Application, opts) {
+    constructor(app: Application, opts: ArgsProtobufComponent) {
         this.app = app;
         this.version = 0;
         this.watchers = {};
         opts = opts || {};
-        this.serverProtosPath = opts.serverProtos || '/config/serverProtos.json';
-        this.clientProtosPath = opts.clientProtos || '/config/clientProtos.json';
+        this.serverProtosPath =
+            opts.serverProtos || '/config/serverProtos.json';
+        this.clientProtosPath =
+            opts.clientProtos || '/config/clientProtos.json';
     }
 
-    start(cb) {
-        this.setProtos(SERVER, path.join(this.app.getBase(), this.serverProtosPath));
-        this.setProtos(CLIENT, path.join(this.app.getBase(), this.clientProtosPath));
+    start(cb: () => void): void {
+        this.setProtos(
+            SERVER,
+            path.join(this.app.getBase(), this.serverProtosPath),
+        );
+        this.setProtos(
+            CLIENT,
+            path.join(this.app.getBase(), this.clientProtosPath),
+        );
 
         this.serverProtoRoot = Root.fromJSON(this.serverProtos);
         this.clientProtoRoot = Root.fromJSON(this.clientProtos);
@@ -39,7 +58,7 @@ export class ProtobufComponent implements IComponent {
         process.nextTick(cb);
     }
 
-    check(type: 'server' | 'client', route: string) {
+    check(type: 'server' | 'client', route: string): any {
         switch (type) {
             case SERVER:
                 if (!this.serverProtoRoot) {
@@ -54,12 +73,14 @@ export class ProtobufComponent implements IComponent {
                 return this.clientProtoRoot.lookup(route);
                 break;
             default:
-                throw new Error('decodeIO meet with error type of protos, type: ' + type + ' route: ' + route);
+                throw new Error(
+                    `decodeIO meet with error type of protos, type: ${type} route: ${route}`,
+                );
                 break;
         }
     }
 
-    encode(route: string, message: Object) {
+    encode(route: string, message: { [k: string]: any }): Uint8Array {
         const ProtoMessage = this.serverProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
@@ -72,7 +93,7 @@ export class ProtobufComponent implements IComponent {
         return ProtoMessage.encode(msg).finish();
     }
 
-    decode(route: string, message: Buffer): Object {
+    decode(route: string, message: Buffer): any {
         const ProtoMessage = this.clientProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
@@ -81,19 +102,19 @@ export class ProtobufComponent implements IComponent {
         return ProtoMessage.toObject(msg);
     }
 
-    getProtos() {
+    getProtos(): ObjectProtos {
         return {
             server: this.serverProtos,
             client: this.clientProtos,
-            version: this.version
+            version: this.version,
         };
     }
 
-    getVersion() {
+    getVersion(): number {
         return this.version;
     }
 
-    setProtos(type: 'server' | 'client', path: string) {
+    setProtos(type: 'server' | 'client', path: string): void {
         if (!fs.existsSync(path)) {
             return;
         }
@@ -107,20 +128,20 @@ export class ProtobufComponent implements IComponent {
         }
 
         //Set version to modify time
-        var time = fs.statSync(path).mtime.getTime();
+        const time = fs.statSync(path).mtime.getTime();
         if (this.version < time) {
             this.version = time;
         }
 
         //Watch file
-        var watcher = fs.watch(path, this.onUpdate.bind(this, type, path));
+        const watcher = fs.watch(path, this.onUpdate.bind(this, type, path));
         if (this.watchers[type]) {
             this.watchers[type].close();
         }
         this.watchers[type] = watcher;
     }
 
-    onUpdate(type: 'server' | 'client', path: string, event: string) {
+    onUpdate(type: 'server' | 'client', path: string, event: string): void {
         if (event !== 'change') {
             return;
         }
@@ -140,8 +161,8 @@ export class ProtobufComponent implements IComponent {
         });
     }
 
-    stop(force, cb: Function) {
-        for (var type in this.watchers) {
+    stop(force: boolean, cb: () => void): void {
+        for (const type in this.watchers) {
             this.watchers[type].close();
         }
         this.watchers = {};
