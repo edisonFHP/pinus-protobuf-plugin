@@ -25,6 +25,17 @@ yarn add pinus-protobuf-plugin
 
 写法就是正常的 protobuf v3 的写法，但是注意不支持 package 语法。
 
+例如 `serverProtos.proto`
+
+```proto
+syntax = "proto3";
+
+message connectorentryHandlerentry {
+    uint32 code = 1;
+    string msg = 2;
+}
+```
+
 使用前需要转为 json 文件，使用命令
 ```shell
 # 安装 pbjs
@@ -40,3 +51,6 @@ pbjs -t json clientProtos.proto > clientProtos.json
 import { Protobuf } from 'pinus-protobuf-plugin';
 app.use(Protobuf);
 ```
+
+# 例子
+提供了一个服务端+客户端的示例，演示如何试用：[example-pinus-unity](https://github.com/bruce48x/example-pinus-unity-client)
