@@ -1,6 +1,6 @@
 {
     "name": "pinus-protobuf-plugin",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "private": false,
     "author": "py8765 pengyang633@126.com/@py8765",
     "main": "./dist/index.js",

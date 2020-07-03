@@ -27,7 +27,11 @@ class ProtobufComponent {
         this.clientProtoRoot = protobufjs_1.Root.fromJSON(this.clientProtos);
         process.nextTick(cb);
     }
+    normalizeRoute(route) {
+        return route.split('.').join('');
+    }
     check(type, route) {
+        route = this.normalizeRoute(route);
         switch (type) {
             case SERVER:
                 if (!this.serverProtoRoot) {
@@ -47,6 +51,7 @@ class ProtobufComponent {
         }
     }
     encode(route, message) {
+        route = this.normalizeRoute(route);
         const ProtoMessage = this.serverProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
@@ -59,6 +64,7 @@ class ProtobufComponent {
         return ProtoMessage.encode(msg).finish();
     }
     decode(route, message) {
+        route = this.normalizeRoute(route);
         const ProtoMessage = this.clientProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);

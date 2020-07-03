@@ -58,7 +58,12 @@ export class ProtobufComponent implements IComponent {
         process.nextTick(cb);
     }
 
+    normalizeRoute(route: string): string {
+        return route.split('.').join('');
+    }
+
     check(type: 'server' | 'client', route: string): any {
+        route = this.normalizeRoute(route);
         switch (type) {
             case SERVER:
                 if (!this.serverProtoRoot) {
@@ -81,6 +86,7 @@ export class ProtobufComponent implements IComponent {
     }
 
     encode(route: string, message: { [k: string]: any }): Uint8Array {
+        route = this.normalizeRoute(route);
         const ProtoMessage = this.serverProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
@@ -94,6 +100,7 @@ export class ProtobufComponent implements IComponent {
     }
 
     decode(route: string, message: Buffer): any {
+        route = this.normalizeRoute(route);
         const ProtoMessage = this.clientProtoRoot.lookupType(route);
         if (!ProtoMessage) {
             throw Error('not such route ' + route);
