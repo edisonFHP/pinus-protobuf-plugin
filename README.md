@@ -1,7 +1,7 @@
 pinus-protobuf-plugin
 ====================
 
-pinus-protobuf-plugin 是一个 pinus 插件，-plugin 提供 protobuf 的编解码功能, 内部使用 [ProtoBuf.js](https://www.npmjs.com/package/protobufjs) 来实现。
+pinus-protobuf-plugin 是一个 pinus 插件，提供 protobuf 的编解码功能, 内部使用 [ProtoBuf.js](https://www.npmjs.com/package/protobufjs) 来实现。
 
 提供这个插件是要解决什么问题：
 * 之前只有 pomelo 的版本，pinus 的还没有
