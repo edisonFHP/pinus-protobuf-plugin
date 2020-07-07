@@ -52,4 +52,4 @@ app.use(Protobuf);
 ```
 
 # 例子
-提供了一个服务端+客户端的示例，演示如何试用：[example-pinus-unity](https://github.com/bruce48x/example-pinus-unity-client)
+提供了一个服务端+客户端的示例，演示如何使用：[example-pinus-unity](https://github.com/bruce48x/example-pinus-unity-client)
