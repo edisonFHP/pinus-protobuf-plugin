@@ -15,10 +15,10 @@
         "build": "yarn format && yarn lint && tsc"
     },
     "dependencies": {
-        "mqtt-connection": "^4.0.0",
-        "pinus": "^1.4.0",
-        "pinus-logger": "^1.4.0",
-        "protobufjs": "6.9.0"
+        "mqtt-connection": "^4.1.0",
+        "pinus": "^1.7.1",
+        "pinus-logger": "^1.7.3",
+        "protobufjs": "6.11.4"
     },
     "devDependencies": {
         "@types/jest": "^25.2.1",
