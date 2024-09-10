@@ -24,7 +24,7 @@
         "outDir": "./dist",
         "moduleResolution": "node",
         "baseUrl": "./",
-        "watch": false
+        // "watch": false
     },
     "include": [
         "index.ts",
